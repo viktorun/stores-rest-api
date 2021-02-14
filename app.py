@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_jwt import JWT
 from flask_restful import Api
@@ -8,7 +10,9 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'  # Tell SqlAlchemy the db will run locally with app
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+# Tell SqlAlchemy the db will run locally with app but with DATABASE_URL in Heroku
+# see https://dashboard.heroku.com/apps/<<server>>/settings under Config Vars. Will require psycopg2 in requirements.txt
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Create an encrypt a key
 app.secret_key = 'jose'
