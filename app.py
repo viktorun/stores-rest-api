@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_jwt import JWT
 from flask_restful import Api
-from db import db
 
 from security import authenticate, identity
 from resources.user import UserRegister
@@ -31,5 +30,6 @@ api.add_resource(StoreList, '/stores')  # http://127.0.0.1:5000/stores
 api.add_resource(UserRegister, '/register')  # http://127.0.0.1:5000/register
 
 if __name__ == '__main__':
+    from db import db
     db.init_app(app)
     app.run(port=5000, debug=True)  # debug=True allows you to get HTML page for troubleshooting
