@@ -14,10 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'
 api = Api(app)
 
-# Create the DB with a Flask decorator
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# Create the DB with a Flask decorator <-- moved to run.py
 
 jwt = JWT(app, authenticate, identity)  # /auth --> Authenticate the JWT token i.e. POST http://http:127.0.0.1/auth
 # with body request with username and password
